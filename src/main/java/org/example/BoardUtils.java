@@ -12,20 +12,23 @@ public class BoardUtils {
 
 
         for (
-                int fileIndex = source.file.ordinal(),
+                int fileIndex = source.file.ordinal() + fileShift,
                 rank = source.rank + rankShift;
 
                 fileIndex != target.file.ordinal() && rank != target.rank;
 
-                fileIndex +=fileShift, rank += rankShift
+                fileIndex += fileShift, rank += rankShift
 
 
         ) {
             result.add(new Coordinates(File.values()[fileIndex], rank));
         }
-
-
-
         return result;
+    }
+
+
+    public static void main(String[] args) {
+           List<Coordinates> list = getDiagonalCoordinates(new Coordinates(File.D,4), new Coordinates(File.A,7));
+        System.out.println("list = " + list);
     }
 }
