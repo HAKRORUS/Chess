@@ -15,7 +15,7 @@ public class Main {
 
         BoardConsoleRenderer renderer = new BoardConsoleRenderer();
 
-        //test
+
 
         Game game = new Game(board);
         game.gameLoop();
