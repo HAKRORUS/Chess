@@ -14,8 +14,7 @@ public class Main {
         );
 
         BoardConsoleRenderer renderer = new BoardConsoleRenderer();
-//
-//        Piece piece = board.getPiece(new Coordinates(File.G,8));
+
 //        Set<Coordinates> availableMoveSquares = piece.getAvailableMoveSquares(board);
 //
 //        int a = 123;
