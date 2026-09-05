@@ -15,7 +15,7 @@ public class Main {
 
         BoardConsoleRenderer renderer = new BoardConsoleRenderer();
 
-//        Set<Coordinates> availableMoveSquares = piece.getAvailableMoveSquares(board);
+
 //
 //        int a = 123;
 
