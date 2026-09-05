@@ -16,8 +16,6 @@ public class Main {
         BoardConsoleRenderer renderer = new BoardConsoleRenderer();
 
 
-//
-//        int a = 123;
 
         Game game = new Game(board);
         game.gameLoop();
