@@ -33,7 +33,6 @@ public abstract class LongRangePiece extends Piece{
                     return false;
                 }
             }
-
             return true;
         } else {
             return false;
