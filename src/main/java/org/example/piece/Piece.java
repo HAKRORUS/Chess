@@ -38,4 +38,31 @@ abstract public class Piece {
     }
 
     protected  abstract Set<CoordinatesShift> getPieceMoves();
+    protected Set<CoordinatesShift> getPieceAttackes(){
+        return getPieceMoves();
+    }
+
+    public Set<Coordinates> getAttackedSquares(Board board) {
+        Set<CoordinatesShift> pieceAttacks = getPieceAttackes();
+        Set<Coordinates> result = new HashSet<>();
+
+        for (CoordinatesShift pieceAttack : pieceAttacks) {
+            if (coordinates.canShift(pieceAttack)) {
+                Coordinates shiftedCoordinates = coordinates.shift(pieceAttack);
+            }
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -2,5 +2,9 @@ package org.example;
 
 public enum Color {
     White,
-    Black
+    Black;
+
+    public Color opposite() {
+        return this == White ? Black : White;
+    }
 }

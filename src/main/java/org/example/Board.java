@@ -2,7 +2,9 @@ package org.example;
 
 import org.example.piece.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Board {
     HashMap<Coordinates, Piece> pieces = new HashMap<>();
@@ -69,5 +71,23 @@ public class Board {
 
     public Piece getPiece(Coordinates coordinates) {
         return pieces.get(coordinates);
+    }
+
+    public boolean isSquareAttackedByColor(Coordinates coordinates, Color color) {
+        List<Piece> pieces = getPiecesByColor(color);
+
+        for (Piece piece : pieces) {
+            piece.getAttackedSquares(this);
+        }
+    }
+
+    private List<Piece> getPiecesByColor(Color color) {
+        List<Piece> result = new ArrayList<>();
+        for (Piece piece : pieces.values()) {
+            if (piece.color == color) {
+                result.add(piece);
+            }
+        }
+        return result;
     }
 }
