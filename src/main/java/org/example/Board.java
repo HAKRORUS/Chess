@@ -5,6 +5,7 @@ import org.example.piece.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Board {
     HashMap<Coordinates, Piece> pieces = new HashMap<>();
@@ -77,8 +78,13 @@ public class Board {
         List<Piece> pieces = getPiecesByColor(color);
 
         for (Piece piece : pieces) {
-            piece.getAttackedSquares(this);
+            Set<Coordinates> attackedSquares = piece.getAttackedSquares(this);
+
+            if (attackedSquares.contains(coordinates)) {
+                return true;
+            }
         }
+        return false;
     }
 
     private List<Piece> getPiecesByColor(Color color) {

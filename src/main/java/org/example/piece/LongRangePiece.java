@@ -38,4 +38,9 @@ public abstract class LongRangePiece extends Piece{
             return false;
         }
     }
+
+    @Override
+    protected boolean isSquareAvailableForAttack(Coordinates coordinates, Board board) {
+        return super.isSquareAvailableForAttack(coordinates, board);
+    }
 }

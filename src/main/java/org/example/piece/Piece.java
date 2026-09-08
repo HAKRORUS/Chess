@@ -49,20 +49,16 @@ abstract public class Piece {
         for (CoordinatesShift pieceAttack : pieceAttacks) {
             if (coordinates.canShift(pieceAttack)) {
                 Coordinates shiftedCoordinates = coordinates.shift(pieceAttack);
+
+                if (isSquareAvailableForAttack(shiftedCoordinates,board)) {
+                    result.add(shiftedCoordinates);
+                }
             }
         }
-        return null;
+        return result;
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    protected boolean isSquareAvailableForAttack(Coordinates coordinates, Board board) {
+        return true;
+    }
 }
