@@ -1,13 +1,13 @@
 package org.example.piece;
 
-import org.example.Board;
-import org.example.BoardUtils;
+import org.example.board.Board;
+import org.example.board.BoardUtils;
 import org.example.Color;
 import org.example.Coordinates;
 
 import java.util.List;
 
-public abstract class LongRangePiece extends Piece{
+public abstract class LongRangePiece extends Piece {
 
     public LongRangePiece(Color color, Coordinates coordinates) {
         super(color, coordinates);
@@ -18,22 +18,7 @@ public abstract class LongRangePiece extends Piece{
         boolean result = super.isSquareAvailableForMove(coordinates, board);
 
         if (result) {
-
-            List<Coordinates> coordinatesBetween;
-            if (this.coordinates.file == coordinates.file) {
-                coordinatesBetween = BoardUtils.getVerticalCoordinatesBetween(this.coordinates, coordinates);
-            } else if (this.coordinates.rank.equals(coordinates.rank)) {
-                coordinatesBetween = BoardUtils.getHorizontalCoordinatesBetween(this.coordinates, coordinates);
-            } else {
-                coordinatesBetween = BoardUtils.getDiagonalCoordinates(this.coordinates, coordinates);
-            }
-
-            for (Coordinates c : coordinatesBetween) {
-                if (!board.isSquareEmpty(c)) {
-                    return false;
-                }
-            }
-            return true;
+            return isSquareAvailableForAttack(coordinates, board);
         } else {
             return false;
         }
@@ -41,6 +26,21 @@ public abstract class LongRangePiece extends Piece{
 
     @Override
     protected boolean isSquareAvailableForAttack(Coordinates coordinates, Board board) {
-        return super.isSquareAvailableForAttack(coordinates, board);
+        List<Coordinates> coordinatesBetween;
+
+        if (this.coordinates.file == coordinates.file) {
+            coordinatesBetween = BoardUtils.getVerticalCoordinatesBetween(this.coordinates, coordinates);
+        } else if (this.coordinates.rank.equals(coordinates.rank)) {
+            coordinatesBetween = BoardUtils.getHorizontalCoordinatesBetween(this.coordinates, coordinates);
+        } else {
+            coordinatesBetween = BoardUtils.getDiagonalCoordinates(this.coordinates, coordinates);
+        }
+
+        for (Coordinates c : coordinatesBetween) {
+            if (!board.isSquareEmpty(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

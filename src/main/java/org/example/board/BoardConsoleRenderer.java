@@ -1,5 +1,8 @@
-package org.example;
+package org.example.board;
 
+import org.example.Color;
+import org.example.Coordinates;
+import org.example.File;
 import org.example.piece.Piece;
 
 import java.util.Set;

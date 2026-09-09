@@ -1,6 +1,6 @@
 package org.example.piece;
 
-import org.example.Board;
+import org.example.board.Board;
 import org.example.Color;
 import org.example.Coordinates;
 

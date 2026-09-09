@@ -1,10 +1,12 @@
 package org.example.piece;
 
-import org.example.Board;
+import org.example.board.Board;
 import org.example.Color;
 import org.example.Coordinates;
+import org.example.board.BoardUtils;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Pawn extends Piece {
@@ -38,9 +40,35 @@ public class Pawn extends Piece {
     }
 
     @Override
+    protected Set<CoordinatesShift> getPieceAttackes() {
+        Set<CoordinatesShift> result = new HashSet<>();
+
+        if (color == Color.White) {
+            result.add(new CoordinatesShift(-1,1));
+            result.add(new CoordinatesShift(1,1));
+        } else {
+            result.add(new CoordinatesShift(-1,-1));
+            result.add(new CoordinatesShift(1,-1));
+        }
+
+        return result;
+    }
+
+    @Override
     protected boolean isSquareAvailableForMove(Coordinates coordinates, Board board) {
         if (this.coordinates.file == coordinates.file) {
-            return board.isSquareEmpty(coordinates);
+
+            int rankShift = Math.abs(this.coordinates.rank - coordinates.rank);
+
+            if (rankShift == 2) {
+
+                List<Coordinates> between = BoardUtils.getVerticalCoordinatesBetween(this.coordinates, coordinates);
+
+              return board.isSquareEmpty(between.getFirst()) && board.isSquareEmpty(coordinates);
+
+            } else {
+                return board.isSquareEmpty(coordinates);
+            }
         } else {
             if (board.isSquareEmpty(coordinates)) {
                 return false;

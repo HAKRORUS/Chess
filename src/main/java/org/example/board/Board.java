@@ -1,5 +1,8 @@
-package org.example;
+package org.example.board;
 
+import org.example.Color;
+import org.example.Coordinates;
+import org.example.File;
 import org.example.piece.*;
 
 import java.util.ArrayList;
@@ -8,7 +11,16 @@ import java.util.List;
 import java.util.Set;
 
 public class Board {
-    HashMap<Coordinates, Piece> pieces = new HashMap<>();
+
+    final String startingFen;
+
+    public HashMap<Coordinates, Piece> pieces = new HashMap<>();
+
+    public List<Move> moves = new ArrayList<>();
+
+    public Board(String startingFen) {
+        this.startingFen = startingFen;
+    }
 
     public void setPiece(Coordinates coordinates, Piece piece) {
         piece.coordinates = coordinates;
@@ -19,10 +31,12 @@ public class Board {
         pieces.remove(coordinates);
     }
 
-    public void movePiece(Coordinates from, Coordinates to) {
-        Piece piece = getPiece(from);
-        removePiece(from);
-        setPiece(to, piece);
+    public void makeMove(Move move) {
+        Piece piece = getPiece(move.from);
+        removePiece(move.from);
+        setPiece(move.to, piece);
+
+        moves.add(move);
     }
 
     public boolean isSquareEmpty(Coordinates coordinates) {
@@ -87,7 +101,7 @@ public class Board {
         return false;
     }
 
-    private List<Piece> getPiecesByColor(Color color) {
+    public List<Piece> getPiecesByColor(Color color) {
         List<Piece> result = new ArrayList<>();
         for (Piece piece : pieces.values()) {
             if (piece.color == color) {

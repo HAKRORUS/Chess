@@ -1,9 +1,10 @@
 package org.example.piece;
 
-import org.example.Board;
-import org.example.Color;
-import org.example.Coordinates;
-import org.example.File;
+import org.example.*;
+import org.example.board.Board;
+import org.example.board.BoardConsoleRenderer;
+import org.example.board.BoardFactory;
+import org.example.board.Move;
 
 import java.util.Scanner;
 import java.util.Set;
@@ -85,13 +86,38 @@ public class InputCoordinates {
             }
         }
 
+        public static Move inputMove(Board board, Color color, BoardConsoleRenderer renderer) {
 
-        public static void main(String[] args) {
+            while (true) {
 
-        Board board = new Board();
-        board.setupDefaultPiecesPositions();
+                Coordinates soureCoordinates = InputCoordinates.inputPieceCoordinatesForColor(color, board);
 
-        Coordinates coordinates =  inputPieceCoordinatesForColor(Color.White, board);
-        System.out.println(coordinates);
+                Piece piece = board.getPiece(soureCoordinates);
+                Set<Coordinates> availableMoveSquares = piece.getAvailableMoveSquares(board);
+
+
+                renderer.render(board, piece);
+                Coordinates targetCoordinates = InputCoordinates.inputAvailableSquare(availableMoveSquares);
+
+
+                Move move = new Move(soureCoordinates, targetCoordinates);
+
+                if (validateIfKingCheckAfterMove(board,color,move)) {
+                    System.out.println("Your king is under attack");
+                    continue;
+                }
+
+                return move;
+            }
+        }
+
+    private static boolean validateIfKingCheckAfterMove(Board board, Color color, Move move) {
+        Board copy = (new BoardFactory().copy(board));
+        copy.makeMove(move);
+
+        Piece king = copy.getPiecesByColor(color).stream().filter(piece -> piece instanceof King).findFirst().get();
+        return copy.isSquareAttackedByColor(king.coordinates,color.opposite());
+
     }
+
 }
